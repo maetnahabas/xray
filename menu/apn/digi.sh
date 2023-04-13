@@ -1,0 +1,20 @@
+#!/bin/bash
+
+clear
+echo -e "                 DIGI                      "
+echo -e "Name                  : Digi Internet"
+echo -e "APN                   : hos "
+echo -e "Proxy                 : Not set" 
+echo -e "Port                  : Not set"
+echo -e "Username              : Not set"
+echo -e "Password              : Not set"
+echo -e "Server                : Not Set"
+echo -e "MMSC                  : Not set"
+echo -e "MMS proxy             : Not set"
+echo -e "MMS port              : Not set"
+echo -e "MCC                   : 502"
+echo -e "MNC                   : 16"
+echo -e "Authentication type   : PAP"
+echo -e "APN type              : default,supl"
+echo -e "APN protocol          : ipv4/ipv6"
+echo -e "APN roaming Protocol  : ipv4/ipv6"
