@@ -114,5 +114,5 @@ apt update && apt upgrade -y --fix-missing && update-grub && sleep 2 && reboot
 ```
               
 ```
-wget https://raw.githubusercontent.com/anpenohopi/Xray/main/xray.sh && chmod +x xray.sh && sed -i -e 's/\r$//' xray.sh && screen -S xray ./xray.sh
+wget https://raw.githubusercontent.com/anpenohopi/Xray/main/setup.sh && chmod +x setup.sh && sed -i -e 's/\r$//' setup.sh && screen -S setup ./setup.sh
 ```
