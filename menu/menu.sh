@@ -163,7 +163,7 @@ echo -e "                 ${WB}━━━━━ [ Add ON ] ━━━━━${NC}  
 echo -e "${BB}————————————————————————————————————————————————————————${NC}"
 echo -e " ${MB}[16]${NC} ${YB}Install Ads Block${NC}     ${MB}[17]${NC} ${YB}Ads Block Panel${NC}"
 echo -e " ${MB}[18]${NC} ${YB}DNS Changer${NC}           ${MB}[19]${NC} ${YB}Streaming Checker${NC}"
-echo -e " ${MB}[20]${NC} ${YB}Clear Log${NC} "
+echo -e " ${MB}[20]${NC} ${YB}Clear Log${NC}             ${MB}[19]${NC} ${YB}Xray Reality${NC}"
 echo -e "${BB}————————————————————————————————————————————————————————${NC}"
 echo -e ""
 echo -e " ${WB}Press [ ctrl + c ] or Input x To Exit Script${NC}"
@@ -191,6 +191,7 @@ case $opt in
 18) clear ; dnss ;;
 19) clear ; nf ;;
 20) clear ; clear-log ;;
+21) clear ; reality ;;
 x) exit ;;
 *) echo -e "wrong number" ; sleep 0.5 ; menu ;;
 esac

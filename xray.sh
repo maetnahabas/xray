@@ -58,6 +58,7 @@ mkdir -p /var/www/html/trojan
 mkdir -p /var/www/html/shadowsocks
 mkdir -p /var/www/html/shadowsocks2022
 mkdir -p /var/www/html/socks5
+mkdir -p /var/www/html/reality
 rm /etc/nginx/sites-enabled/default
 rm /etc/nginx/sites-available/default
 systemctl restart nginx
@@ -437,6 +438,72 @@ cat > /usr/local/etc/xray/config.json << END
     }
   ]
 }
+#xray-reality
+{
+  "log": {
+    "access": "/var/log/xray/access.log",
+    "error": "/var/log/xray/error.log",
+    "loglevel": "warning"
+  },
+  "routing": {
+    "domainStrategy": "AsIs",
+    "rules": [
+      {
+        "type": "field",
+        "ip": [
+          "geoip:private"
+        ],
+        "outboundTag": "block"
+      },
+      {
+        "type": "field",
+        "domain": [
+          "geosite:category-ads-all"
+        ],
+        "outboundTag": "block"
+      }
+    ]
+  },
+  "inbounds": [
+    {
+      "listen": "127.0.0.1",
+      "port": "20007",
+      "protocol": "vless",
+      "settings": {
+        "clients": [
+          {
+            "id": "$uuid",
+            "flow": "xtls-rprx-vision"
+          }
+        ],
+        "decryption": "none"
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "minVersion": "1.2",
+            }
+          ]
+        }
+      },
+      "sniffing": {
+        "enabled": true,
+        "destOverride": ["http","tls"]
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "tag": "direct",
+      "protocol": "freedom"
+    },
+    {
+      "tag": "block",
+      "protocol": "blackhole"
+    }
+  ]
+}
 END
 
 # Set Nginx Conf
@@ -651,6 +718,14 @@ sed -i '$ igrpc_set_header Host \$http_host;' /etc/nginx/conf.d/xray.conf
 sed -i '$ igrpc_pass grpc://127.0.0.1:20006;' /etc/nginx/conf.d/xray.conf
 sed -i '$ i}' /etc/nginx/conf.d/xray.conf
 
+sed -i '$ ilocation ^~ /xray-relity {' /etc/nginx/conf.d/xray.conf
+sed -i '$ iproxy_redirect off;' /etc/nginx/conf.d/xray.conf
+sed -i '$ igrpc_set_header X-Real-IP \$remote_addr;' /etc/nginx/conf.d/xray.conf
+sed -i '$ igrpc_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;' /etc/nginx/conf.d/xray.conf
+sed -i '$ igrpc_set_header Host \$http_host;' /etc/nginx/conf.d/xray.conf
+sed -i '$ igrpc_pass grpc://127.0.0.1:20007;' /etc/nginx/conf.d/xray.conf
+sed -i '$ i}' /etc/nginx/conf.d/xray.conf
+
 systemctl restart nginx
 systemctl restart xray
 
@@ -719,6 +794,7 @@ wget -O shadowsocks2022 "https://raw.githubusercontent.com/anpenohopi/Xray/main/
 wget -O socks "https://raw.githubusercontent.com/anpenohopi/Xray/main/menu/socks.sh"
 wget -O allxray "https://raw.githubusercontent.com/anpenohopi/Xray/main/menu/allxray.sh"
 wget -O bbr "https://raw.githubusercontent.com/anpenohopi/Xray/main/menu/bbr.sh"
+wget -O reality "https://raw.githubusercontent.com/anpenohopi/Xray/main/menu/reality.sh"
 ## Vmess
 wget -O add-vmess "https://raw.githubusercontent.com/anpenohopi/Xray/main/vmess/add-vmess.sh"
 wget -O del-vmess "https://raw.githubusercontent.com/anpenohopi/Xray/main/vmess/del-vmess.sh"
@@ -873,6 +949,12 @@ chmod +x helium
 chmod +x dnss
 chmod +x nf
 chmod +x clear-log
+## Chmod Reality
+chmod +x add-reality
+chmod +x del-reality
+chmod +x extend-reality
+chmod +x trialreality
+chmod +x cek-reality
 cd
 echo "0 0 * * * root xp" >> /etc/crontab
 systemctl restart cron
