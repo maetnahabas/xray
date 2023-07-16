@@ -7,6 +7,8 @@ BB='\e[34;1m'
 MB='\e[35;1m'
 CB='\e[35;1m'
 WB='\e[37;1m'
+echo -e " Dengan Nama Allah Yang Maha Pemurah Lagi Maha Pengasih "
+sleep 1
 xray_service=$(systemctl status xray | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 nginx_service=$(systemctl status nginx | grep Active | awk '{print $3}' | cut -d "(" -f2 | cut -d ")" -f1)
 if [[ $xray_service == "running" ]]; then
@@ -33,6 +35,7 @@ dmon="$(vnstat -i eth0 -m | grep "`date +"%b '%y"`" | awk '{print $3" "substr ($
 umon="$(vnstat -i eth0 -m | grep "`date +"%b '%y"`" | awk '{print $6" "substr ($7, 1, 1)}')"
 tmon="$(vnstat -i eth0 -m | grep "`date +"%b '%y"`" | awk '{print $9" "substr ($10, 1, 1)}')"
 domain=$(cat /usr/local/etc/xray/domain)
+domain1=$(cat /var/lib/dnsvps.conf)
 ISP=$(cat /usr/local/etc/xray/org)
 CITY=$(cat /usr/local/etc/xray/city)
 WKT=$(cat /usr/local/etc/xray/timezone)
@@ -125,12 +128,9 @@ echo -e "\e[33m Kernel               \e[0m:  `uname -r`"
 echo -e "\e[33m Total Amount Of RAM  \e[0m:  $tram MB"
 echo -e "\e[33m Used RAM             \e[0m:$red  $uram\e[0m MB"
 echo -e "\e[33m System Uptime        \e[0m:  $uptime "
-echo -e "\e[33m Isp Name             \e[0m:  $ISP"
-echo -e "\e[33m Domain               \e[0m:  $domain"	
+echo -e "\e[33m Domain cfront        \e[0m:  $domain"	
+echo -e "\e[33m Domain               \e[0m:  $domain1"	
 echo -e "\e[33m Ip Vps               \e[0m:  $IPVPS"	
-echo -e "\e[33m City                 \e[0m:  $CITY"
-echo -e "\e[33m Time                 \e[0m:  $WKT"
-echo -e "\e[33m Day                  \e[0m:  $DAY"
 echo -e "\e[33m Date                 \e[0m:  $DATE"
 echo -e "\e[33m Script Version       \e[0m:  Freemium"
 echo -e "\e[33m Certificate status   \e[0m:  \e[33mExpired in ${tlsStatus} days\e[0m"
@@ -163,7 +163,8 @@ echo -e "                 ${WB}━━━━━ [ Add ON ] ━━━━━${NC}  
 echo -e "${BB}————————————————————————————————————————————————————————${NC}"
 echo -e " ${MB}[16]${NC} ${YB}Install Ads Block${NC}     ${MB}[17]${NC} ${YB}Ads Block Panel${NC}"
 echo -e " ${MB}[18]${NC} ${YB}DNS Changer${NC}           ${MB}[19]${NC} ${YB}Streaming Checker${NC}"
-echo -e " ${MB}[20]${NC} ${YB}Clear Log${NC}             ${MB}[19]${NC} ${YB}Xray Reality${NC}"
+echo -e " ${MB}[20]${NC} ${YB}Clear Log${NC}             ${MB}[21]${NC} ${YB}Change Xray-core Mod${NC}"
+echo -e " ${MB}[22]${NC} ${YB}WARP+${NC}                 ${MB}[23]${NC} ${YB}Change Xray-core Official${NC} "
 echo -e "${BB}————————————————————————————————————————————————————————${NC}"
 echo -e ""
 echo -e " ${WB}Press [ ctrl + c ] or Input x To Exit Script${NC}"
@@ -191,7 +192,9 @@ case $opt in
 18) clear ; dnss ;;
 19) clear ; nf ;;
 20) clear ; clear-log ;;
-21) clear ; reality ;;
+21) clear ; xraymod ;;
+22) clear ; warpy ;;
+23) clear ; xrayofficial ;;
 x) exit ;;
 *) echo -e "wrong number" ; sleep 0.5 ; menu ;;
 esac
