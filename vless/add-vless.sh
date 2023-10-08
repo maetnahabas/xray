@@ -42,10 +42,25 @@ xrayvless6="vless://${uuid}@${domain}:443?mode=gun&security=tls&encryption=none&
 xrayvless7="vless://${uuid}@${domain}:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=playtv.unifi.com.my#${user}"
 xrayvless8="vless://${uuid}@${domain}:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=music.u.com.my#${user}"
 xrayvless9="vless://${uuid}@prod-in.viu.com.${domain}:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=prod-in.viu.com#${user}"
-xrayvless10="vless://${uuid}@www.speedtest.net:80?path=/vless&encryption=none&type=ws&host=speedtest.net.${domain}#${user}"
+xrayvless10="vless://${uuid}@www.speedtest.net:80?path=/vless&encryption=none&type=ws&host=www.speedtest.net.${domain}#${user}"
 xrayvless11="vless://$uuid@$domain:443?path=/vless&security=tls&encryption=none&host=$domain&type=ws&sni=music.u.com.my#$user"
 xrayvless12="vless://$uuid@$domain:443?path=/vless&security=tls&encryption=none&host=$domain&type=ws&sni=open.spotify.com#$user"
 xrayvless13="vless://$uuid@$domain:443?path=/vless&security=tls&encryption=none&host=$domain&type=ws&sni=playtv.unifi.com.my#$user"
+ cat <<EOF >>"/user/config-user/${user}"
+vless://$uuid@$domain:443?path=/vless&security=tls&encryption=none&host=$domain&type=ws&sni=$domain#$user
+vless://$uuid@$domain:80?path=/vless&security=none&encryption=none&host=$domain&type=ws#$user
+vless://$uuid@$domain:443?security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=$domain#$user
+vless://${uuid}@yes.mascorp.eu.org:80?path=/vless&encryption=none&type=ws&host=cdn.who.int.${domain}#${user}@yes4g
+vless://${uuid}@api.useinsider.com:80?path=/vless&encryption=none&type=ws&host=${domain}#${user}@digi
+vless://${uuid}@${domain}:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=open.spotify.com#${user}@beone
+vless://${uuid}@${domain}:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=playtv.unifi.com.my#${user}@unifi
+vless://${uuid}@${domain}:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=opensignal.com#${user}@umo
+vless://${uuid}@prod-in.viu.com.${domain}:443?mode=gun&security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=prod-in.viu.com#${user}@maxistv
+vless://${uuid}@www.speedtest.net:80?path=/vless&encryption=none&type=ws&host=www.speedtest.net.${domain}#${user}@celcombooster
+vless://$uuid@$domain:443?path=/vless&security=tls&encryption=none&host=$domain&type=ws&sni=opensignal.com#$user@umo2
+vless://$uuid@$domain:443?path=/vless&security=tls&encryption=none&host=$domain&type=ws&sni=open.spotify.com#$user@beone2
+vless://$uuid@$domain:443?path=/vless&security=tls&encryption=none&host=$domain&type=ws&sni=playtv.unifi.com.my#$user@unifi
+EOF
 cat > /var/www/html/vless/vless-$user.txt << END
 ==========================
 Vless WS (CDN) TLS
@@ -107,6 +122,9 @@ Link NTLS : vless://$uuid@$domain:80?path=/vless&security=none&encryption=none&h
 Link gRPC : vless://$uuid@$domain:443?security=tls&encryption=none&type=grpc&serviceName=vless-grpc&sni=$domain#$user
 ==========================
 END
+	base64Result=$(base64 -w 0 /user/config-user/${user})
+    echo ${base64Result} >"/user/config-url/${uuid}"
+    systemctl restart xray.service
 ISP=$(cat /usr/local/etc/xray/org)
 CITY=$(cat /usr/local/etc/xray/city)
 systemctl restart xray
