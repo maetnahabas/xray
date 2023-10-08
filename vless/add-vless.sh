@@ -123,7 +123,7 @@ Link gRPC : vless://$uuid@$domain:443?security=tls&encryption=none&type=grpc&ser
 ==========================
 END
 	base64Result=$(base64 -w 0 /user/config-user/${user})
-    echo ${base64Result} >"/user/config-url/${uuid}"
+    echo ${base64Result} >"/var/www/html/vless/${uuid}"
     systemctl restart xray.service
 ISP=$(cat /usr/local/etc/xray/org)
 CITY=$(cat /usr/local/etc/xray/city)
@@ -156,6 +156,7 @@ echo -e "${BB}——————————————————————
 echo -e "Link gRPC     : ${vlesslink3}" | tee -a /user/log-vless-$user.txt
 echo -e "${BB}————————————————————————————————————————————————————${NC}" | tee -a /user/log-vless-$user.txt
 echo -e "Format Clash  : http://$domain:8000/vless/vless-$user.txt" | tee -a /user/log-vless-$user.txt
+echo -e " Link url OPENWRT/xrayN PC: http://${domain}:81/vless/${uuid}"
 echo -e "=========================" | tee -a /user/log-vless-$user.txt
 echo -e "Link TLS    : ${xrayvless1}" | tee -a /user/log-vless-$user.txt
 echo -e "========================="| tee -a /user/log-vless-$user.txt
@@ -203,7 +204,6 @@ echo -e " "| tee -a /user/log-vless-$user.txt
 echo -e "Link celcom freeze kuota/booster : ${xrayvless10}"| tee -a /user/log-vless-$user.txt
 echo -e " "| tee -a /user/log-vless-$user.txt
 echo -e "========================="| tee -a /user/log-vless-$user.txt
-echo -e " Link url OPENWRT/xrayN PC: https://${domain}/s/${uuid}"
 echo "Script Mod By surun"| tee -a /user/log-vless-$user.txt
 echo -e "${BB}————————————————————————————————————————————————————${NC}" | tee -a /user/log-vless-$user.txt
 echo -e "Expired On    : $exp" | tee -a /user/log-vless-$user.txt
