@@ -203,6 +203,7 @@ echo -e " "| tee -a /user/log-vless-$user.txt
 echo -e "Link celcom freeze kuota/booster : ${xrayvless10}"| tee -a /user/log-vless-$user.txt
 echo -e " "| tee -a /user/log-vless-$user.txt
 echo -e "========================="| tee -a /user/log-vless-$user.txt
+echo -e " Link url OPENWRT/xrayN PC: https://${domain}/s/${uuid}"
 echo "Script Mod By surun"| tee -a /user/log-vless-$user.txt
 echo -e "${BB}————————————————————————————————————————————————————${NC}" | tee -a /user/log-vless-$user.txt
 echo -e "Expired On    : $exp" | tee -a /user/log-vless-$user.txt
