@@ -1,6 +1,6 @@
 #!/bin/bash
 #wget https://github.com/${GitUser}/
-GitUser="anpenohopi"
+GitUser="maetnahabas"
 # Color Validation
 Lred='\e[1;91m'
 Lgreen='\e[92m'
@@ -21,9 +21,9 @@ echo ''
 echo "                                                              "
 echo -e "$Lyellow                  ⚡ PREMIUM AUTOSCRIPT ⚡"$NC
 echo -e "$green.........................................................."$NC
-echo -e "$Lyellow                  Autoscript By Penohop"$NC
+echo -e "$Lyellow                  Autoscript By Maetnahabas"$NC
 echo -e "$Lyellow                    CONTACT TELEGRAM"$NC
-echo -e "$Lyellow                       @penohop"$NC
+echo -e "$Lyellow                       @Celcom5G"$NC
 echo -e "$green.........................................................."$NC
 echo ''
 echo -e "$Lyellow                       Tunggu 5 Saat!"$NC
@@ -50,7 +50,7 @@ VALIDITY() {
     today=$(date -d "0 days" +"%Y-%m-%d")
     Exp1=$(curl https://raw.githubusercontent.com/${GitUser}/allow/main/ipvps.conf | grep $MYIP | awk '{print $4}')
     if [[ $today < $Exp1 ]]; then
-        echo -e "\e[32mLicensi Aktif @penohop\e[0m"
+        echo -e "\e[32mLicensi Aktif @Maetnahabas\e[0m"
         sleep 5
     else
         echo -e "\e[31mYOUR SCRIPT HAS EXPIRED!\e[0m"
@@ -63,7 +63,7 @@ VALIDITY() {
     today=$(date -d "0 days" +"%Y-%m-%d")
     Exp1=$(curl https://raw.githubusercontent.com/${GitUser}/allow/main/ipvps.conf | grep $MYIP | awk '{print $4}')
     if [[ $today < $Exp1 ]]; then
-        echo -e "\e[32mLicensi Aktif @penohop\e[0m"
+        echo -e "\e[32mLicensi Aktif @Maetnahabas\e[0m"
         sleep 5
     else
         echo -e "\e[31mYOUR SCRIPT HAS EXPIRED!\e[0m"
